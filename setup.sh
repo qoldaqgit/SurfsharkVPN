@@ -1,16 +1,16 @@
 #!/bin/bash
 
 #update and install requirements
-#sudo apt update &&
-#sudo apt upgrade -y  &&
-#sudo apt-get install openvpn -y &&
-#sudo apt-get install unzip -y &&
-#sudo apt install iptables -y &&
-#sudo apt install resolvconf -y &&
+sudo apt update &&
+sudo apt upgrade -y  &&
+sudo apt-get install openvpn -y &&
+sudo apt-get install unzip -y &&
+sudo apt install iptables -y &&
+sudo apt install resolvconf -y &&
 
 cd /etc/openvpn &&
-#sudo wget https://my.surfshark.com/vpn/api/v1/server/configurations &&
-#sudo unzip configurations &&
+sudo wget https://my.surfshark.com/vpn/api/v1/server/configurations &&
+sudo unzip configurations &&
 
 #Configure the desired location to connect to
 sudo touch /etc/openvpn/connect.sh
