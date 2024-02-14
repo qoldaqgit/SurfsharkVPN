@@ -33,11 +33,29 @@ sudo resolvconf -u &&
 sudo systemctl restart resolvconf.service &&
 sudo systemctl restart systemd-resolved.service &&
 
-echo ###########################################
-echo ### Run sudo nano /etc/openvpn/auth.txt ###
-echo ###########################################
-echo ###     and insert your credentials     ###
-echo ###########################################
+h=`hostname -I`
+
+f=`echo ${h} | cut -d '.' -f 1` &&
+s=`echo ${h} | cut -d '.' -f 2` &&
+t=`echo ${h} | cut -d '.' -f 3` &&
+
+l=$(echo  $f.$s.$t.0) &&
+
+sed  -e "s/networkIP/"$l"/g" iptables.sh >> iptables.sh &&
+
+if [[ $# -gt 0 ]]
+then
+sed  -e "s/#iptables/iptables/g" iptables.sh >> iptables.sh &&
+sed  -e "s/managementIP/"$1"/g" iptables.sh >> iptables.sh
+fi
+
+
+
+echo "###########################################" &&
+echo "### Run sudo nano /etc/openvpn/auth.txt ###" &&
+echo "###########################################" &&
+echo "###     and insert your credentials     ###" &&
+echo "###########################################"
 
 #Run the following to test
 #sudo bash /etc/openvpn/iptables.sh && sleep 10 && sudo bash /etc/openvpn/connect.sh
