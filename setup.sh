@@ -46,7 +46,7 @@ sed  -e "s/networkIP/"$l"/g" iptables.sh >> iptables.sh &&
 if [[ $# -gt 0 ]]
 then
 sed  -e "s/#iptables/iptables/g" iptables.sh >> iptables.sh &&
-sed  -e "s/managementIP/"$1"/g" iptables.sh >> iptables.sh
+sed  -e "s/managementIP/"$1"/g" iptables.sh >> iptables.sh &&
 fi
 
 
