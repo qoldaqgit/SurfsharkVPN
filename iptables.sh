@@ -23,9 +23,8 @@ iptables -A INPUT -s 162.252.172.57 -m comment --comment "Allow DNS In"  -j ACCE
 
 
 # Make sure that you can communicate within your own network
-iptables -A INPUT -s 10.10.10.0/24 -d 10.10.10.0/24 -m comment --comment "Allow LAN In" -j ACCEPT
-iptables -A OUTPUT -s 10.10.10.0/24 -d 10.10.10.0/24 -m comment --comment "Allow LAN Out" -j ACCEPT
-
+iptables -A INPUT -s networkIP/24 -d networkIP/24 -m comment --comment "Allow LAN In" -j ACCEPT
+iptables -A OUTPUT -s networkIP/24 -d networkIP/24 -m comment --comment "Allow LAN Out" -j ACCEPT
 
 # Allow established sessions to receive traffic:
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -41,6 +40,9 @@ iptables -A OUTPUT -o tun+ -j ACCEPT
 # allow VPN connection
 iptables -I OUTPUT 1 -p udp --destination-port 1194 -m comment --comment "Allow VPN connection" -j ACCEPT
 
+# Make sure you can SSH in from management network(not required if on same local network)
+#iptables -I INPUT -s managementIP/24 -p tcp --dport 22 -j ACCEPT
+#iptables -I OUTPUT -d managementIP/24 -p tcp --sport 22 -j ACCEPT
 
 # Block All
 iptables -A OUTPUT -j DROP
@@ -62,5 +64,3 @@ echo "saving"
 iptables-save > /etc/iptables.rules
 echo "done"
 #echo 'openVPN - Rules successfully applied, we start "watch" to verify IPtables in realtime (you can cancel it as usual CTRL + c)'
-#sleep 3
-#watch -n 0 "sudo iptables -nvL"
