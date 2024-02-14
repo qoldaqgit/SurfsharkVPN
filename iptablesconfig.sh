@@ -1,4 +1,6 @@
 #!/bin/bash
+rm iptables.sh2
+
 h=`hostname -I`
 
 f=`echo ${h} | cut -d '.' -f 1`
@@ -15,4 +17,7 @@ sed  -e "s/#iptables/iptables/" iptables.sh2 >> iptables.sh2
 sed  -e "s/managementIP/"$1"/" iptables.sh2 >> iptables.sh2
 fi
 
+rm /etc/openvpn/iptables.sh
 cp iptables.sh2 /etc/openvpn/iptables.sh
+
+echo done
