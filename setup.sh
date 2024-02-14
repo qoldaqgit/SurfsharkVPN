@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#to install 
+# sudo wget https://raw.githubusercontent.com/qoldaqgit/SurfsharkVPN/main/setup.sh && sudo bash setup.sh
+
 #update and install requirements
 sudo apt update &&
 sudo apt upgrade -y  &&
