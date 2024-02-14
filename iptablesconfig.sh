@@ -7,13 +7,12 @@ t=`echo ${h} | cut -d '.' -f 3`
 
 l=$(echo  $f.$s.$t.0)
 
-sed  -e "s/networkIP/"$l"/g" ~/iptables.sh >> ~/iptables.sh
+sed  -e "s/networkIP/"$l"/" iptables.sh >> iptables.sh2
 
 if [[ $# -gt 0 ]]
 then
-sed  -e "s/#iptables/iptables/g" ~/iptables.sh >> ~/iptables.sh
-sed  -e "s/managementIP/"$1"/g" ~/iptables.sh >> ~/iptables.sh
+sed  -e "s/#iptables/iptables/" iptables.sh2 >> iptables.sh2
+sed  -e "s/managementIP/"$1"/" iptables.sh2 >> iptables.sh2
 fi
 
-mv ~/iptables.sh /etc/openvpn/iptables.sh
-
+cp iptables.sh2 /etc/openvpn/iptables.sh
