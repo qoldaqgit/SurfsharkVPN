@@ -1,5 +1,6 @@
 #!/bin/bash
 rm iptables.sh2
+cp iptables.sh iptables.sh2
 
 h=`hostname -I`
 
@@ -9,12 +10,12 @@ t=`echo ${h} | cut -d '.' -f 3`
 
 l=$(echo  $f.$s.$t.0)
 
-sed  -e "s/networkIP/"$l"/" iptables.sh >> iptables.sh2
+sed  -i "s/networkIP/"$l"/" iptables.sh2 
 
 if [[ $# -gt 0 ]]
 then
-sed  -i "s/#iptables/iptables/" iptables.sh2 >> iptables.sh2
-sed  -i "s/managementIP/"$1"/" iptables.sh2 >> iptables.sh2
+sed  -i "s/#iptables/iptables/" iptables.sh2
+sed  -i "s/managementIP/"$1"/" iptables.sh2
 fi
 
 rm /etc/openvpn/iptables.sh
