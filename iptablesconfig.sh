@@ -13,8 +13,8 @@ sed  -e "s/networkIP/"$l"/" iptables.sh >> iptables.sh2
 
 if [[ $# -gt 0 ]]
 then
-sed  -e "s/#iptables/iptables/" iptables.sh2 >> iptables.sh2
-sed  -e "s/managementIP/"$1"/" iptables.sh2 >> iptables.sh2
+sed  -i "s/#iptables/iptables/" iptables.sh2 >> iptables.sh2
+sed  -i "s/managementIP/"$1"/" iptables.sh2 >> iptables.sh2
 fi
 
 rm /etc/openvpn/iptables.sh
