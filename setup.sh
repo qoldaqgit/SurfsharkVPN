@@ -10,12 +10,16 @@ sudo apt-get install openvpn -y &&
 sudo apt-get install unzip -y &&
 sudo apt install iptables -y &&
 sudo apt install resolvconf -y &&
+sudo apt install nano -y &&
+sudo apt install qemu-guest-agent -y &&
+sudo apt install iputils-ping -y &&
 
-#cd /etc/openvpn/ &&
+
+#Get and decompress Surfshark configurations
 sudo wget https://my.surfshark.com/vpn/api/v1/server/configurations -O /etc/openvpn/configurations &&
 sudo unzip /etc/openvpn/configurations -d /etc/openvpn/ &&
 
-#Configure the desired location to connect to
+#Configure the desired location to connect to (Default - Miami, FL)
 sudo touch /etc/openvpn/connect.sh
 sudo touch /etc/openvpn/auth.txt
 echo sudo openvpn --config "/etc/openvpn/us-mia.prod.surfshark.com_udp.ovpn" --auth-user-pass /etc/openvpn/auth.txt >> /etc/openvpn/connect.sh &&
@@ -25,7 +29,7 @@ echo [password] >> /etc/openvpn/auth.txt &&
 #Enable IP Forwarding
 sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward" &&
 
-#Get the iptables config
+#Get the iptables config files
 sudo wget https://raw.githubusercontent.com/qoldaqgit/SurfsharkVPN/main/iptables.sh  &&
 sudo wget https://raw.githubusercontent.com/qoldaqgit/SurfsharkVPN/main/iptablesconfig.sh  &&
 sudo wget https://raw.githubusercontent.com/qoldaqgit/SurfsharkVPN/main/reset-tables.sh  &&
@@ -39,15 +43,16 @@ sudo resolvconf -u &&
 sudo systemctl restart resolvconf.service &&
 sudo systemctl restart systemd-resolved.service &&
 
-
-sudo bash iptablesconfig.sh &&
-sudo nano /etc/openvpn/auth.txt
-
 #echo "###########################################" &&
 #echo "### Run sudo nano /etc/openvpn/auth.txt ###" &&
 #echo "###########################################" &&
 #echo "###     and insert your credentials     ###" &&
 #echo "###########################################"
+
+sudo nano /etc/openvpn/auth.txt
+
+#To config iptables run:
+#sudo bash iptablesconfig.sh [MngmtIP]
 
 #Run the following to test
 #sudo bash /etc/openvpn/iptables.sh && sleep 10 && sudo bash /etc/openvpn/connect.sh
